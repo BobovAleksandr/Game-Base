@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games Base</title>
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/header.css">
+  <link rel="stylesheet" href="/styles/cards.css">
+  <link rel="stylesheet" href="/styles/components.css">
+</head>
+<body class="page">
+  <header class="page__header">
+    <nav class="header__menu">
+      <button class="header__add-game-button button" type="button">Добавить игру</button>
+      <menu class="header__filters">
+        <ul class="header__filters-list">
+          <li class="header__filters-item">
+            <span class="header__filters-item-text">Статус прохождения</span>
+          </li>
+          <li class="header__filters-item">
+            <span class="header__filters-item-text">Формат игры</span>
+          </li>
+          <li class="header__filters-item">
+            <span class="header__filters-item-text">Оценка</span>
+          </li>
+          <li class="header__filters-item">
+            <span class="header__filters-item-text">Статус релиза</span>
+          </li>
+          <li class="header__filters-item">
+            <span class="header__filters-item-text">Франшиза</span>
+          </li>
+          <li class="header__filters-item">
+            <span class="header__filters-item-text">Хочу пройти?</span>
+          </li>
+        </ul>
+      </menu>
+      <div class="header__sort">
+        <span class="header__sort-text">Сортировать по:</span>
+        <select name="header__sort-select" id="header__sort-select" class="header__sort-select">
+          <option value="default" class="header__sort-option">По умолчанию</option>
+          <option value="rate-to-down" class="header__sort-option">По оценке / по убыванию</option>
+          <option value="rate-to-up" class="header__sort-option">По оценке / по возрастанию</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+  <main class="page__main">
+    <ul class="cards__list">
+      <li class="cards__item">
+        <div class="cards__item-image-container">
+          <img src="./images/posters/mL6876_1024x1024.webp" alt="Cyberpunk 2077 Phantom Liberty poster" class="cards__item-image">
+        </div>
+        <div class="cards__content">
+          <h2 class="cards__item-title">Cyberpunk 2077 - Phantom Liberty</h2>
+          <div class="cards__item-signs">
+            <img src="./images/toplay.svg" alt="" class="cards__item-sign--toplay">
+            <img src="./images/dlc.svg" alt="" class="cards__item-sign--dlc">
+            <img src="./images/toscore.svg" alt="" class="cards__item-sign--toscore">
+            <span class="cards__item-sign--score hidden">4.7</span>
+            <span class="cards__item-sign--release hidden">30.08.2024</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>

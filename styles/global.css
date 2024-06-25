@@ -1,0 +1,40 @@
+@font-face {
+  font-family: Raleway;
+  font-weight: normal;
+  src: url(./../fonts/Raleway-Regular.ttf);
+}
+
+@font-face {
+  font-family: Raleway;
+  font-weight: bold;
+  src: url(./../fonts/Raleway-Bold.ttf);
+}
+
+*, 
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, img {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+.page {
+  font-family: Raleway, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  padding: 35px 67px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  background-color: #222831;
+}
+

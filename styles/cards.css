@@ -1,0 +1,83 @@
+.cards__item {
+  max-width: 225px;
+  max-height: 342px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.cards__item-image-container {
+  overflow: hidden;
+  max-height: 250px;
+}
+
+.cards__item-image {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  overflow: hidden;
+  transition: transform ease 0.1s;
+}
+
+.cards__item-image:hover {
+  transform: scale(1.05);
+}
+
+.cards__content {
+  position: relative;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px;
+}
+
+.cards__item-title {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.cards__item-signs {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.cards__item-sign--toplay {
+  width: 24px;
+  height: 24px;
+}
+
+.cards__item-sign--dlc {
+  width: 24px;
+  height: 24px;
+}
+
+.cards__item-sign--toscore {
+  margin-left: auto;
+}
+
+.cards__item-sign--score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F05454;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  margin-left: auto;
+  line-height: 1em;
+  padding-bottom: 6px;
+}
+
+.cards__item-sign--release {
+  margin-left: auto;
+  background-color: rgba(240, 84, 84, 0.5);
+  color: #fff;
+  border-radius: 20px;
+  padding: 5px 14px;
+}
+
+

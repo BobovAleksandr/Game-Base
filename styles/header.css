@@ -4,7 +4,7 @@
 
 .header__menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 35px;
 }
@@ -15,26 +15,33 @@
   color: #fff;
 }
 
+.header__add-game-button:hover {
+  background-color: #ff7d7d;
+}
+
+.header__add-game-button:active {
+  background-color: #F05454;
+}
+
 .header__filters {
-  flex-grow: 1;
-  flex-shrink: 1;
+  border-radius: 10px;
 }
 
 .header__filters-list {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
   height: 100%;
   background-color: #30475E;
-  border-radius: 10px;
-  padding: 10px 15px;
   color: #fff;
+  border-radius: 10px;
 }
 
 .header__filters-item {
   position: relative;
-  margin-right: 20px;
+  width: max-content;
+  padding-right: 20px;
 }
 
 .header__filters-item::before {
@@ -42,8 +49,8 @@
   position: absolute;
   width: 8px;
   height: 2px;
-  top: 10px;
-  right: -15px;
+  top: 19px;
+  right: 14px;
   background-color: #fff;
   transform: rotate(45deg);
 }
@@ -53,39 +60,157 @@
   position: absolute;
   width: 8px;
   height: 2px;
-  top: 10px;
-  right: -20px;
+  top: 19px;
+  right: 8px;
   background-color: #fff;
   transform: rotate(-45deg);
 }
 
+.header__filters-item:first-child:hover {
+  border-top-left-radius: 10px;
+}
+
+.header__filters-item:last-child:hover {
+  border-top-right-radius: 10px;
+}
+
+.header__filters-item:hover {
+  background-color: #4c6f92;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.header__filters-item-text {
+  display: block;
+  padding: 10px 15px;
+}
+
+.header__filters-options {
+  position: absolute;
+  top: 41px;
+  min-width: 100%;
+  width: max-content;
+  background-color: #30475E;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  display: none;
+  z-index: 0;
+}
+
+.header__filters-option {
+  padding: 10px 15px;
+}
+
+.header__filters-option:hover {
+  background-color: #4c6f92;
+  cursor: pointer;
+}
+
+.header__filters-option:last-child:hover {
+  background-color: #4c6f92;
+  cursor: pointer;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.header__complete {
+  padding-left: 10px;
+}
+
+.header__toplay {
+  padding-right: 30px;
+}
+
+.header__toplay::before {
+  right: 24px;
+}
+
+.header__toplay::after {
+  right: 18px;
+}
+
+.header__complete:hover > .header__complete-options {
+  display: flex;
+}
+
+.header__format:hover > .header__format-options {
+  display: flex;
+}
+
+.header__score:hover > .header__score-options {
+  display: flex;
+}
+
+.header__release:hover > .header__release-options {
+  display: flex;
+}
+
+.header__toplay:hover > .header__toplay-options {
+  display: flex;
+}
+
+.header__series:hover > .header__series-options {
+  display: flex;
+}
+
+.header__complete-options {
+  left: 0;
+}
+
 .header__sort {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
   background-color: #30475E;
   border-radius: 10px;
-  padding: 10px 15px;
   color: #fff;
 }
 
-/* .header__sort-text {
-} */
-
-.header__sort-select {
-  border: 0;
-  vertical-align: middle;
-  max-height: 21px;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  color: inherit;
-  text-align: right;
-  padding-right: 10px;
+.header__sort:hover {
+  background-color: #4c6f92;
+  cursor: pointer;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-/* .header__sort-select:hover {
-} */
+.header__sort:hover > .header__sort-select {
+  display: flex;
+}
+
+.header__sort-text {
+  padding: 10px 20px;
+}
+
+.header__sort-select {
+  position: absolute;
+  width: max-content;
+  top: 41px;
+  display: none;
+  flex-direction: column;
+  align-items: end;
+  right: 0;
+  background-color: #30475E;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.header__sort-option {
+  width: 100%;
+  text-align: end;
+  display: block;
+  padding: 10px 15px;
+}
+
+.header__sort-option:hover {
+  cursor: pointer;
+  background-color: #4c6f92;
+}
+
+
+
 
 
 

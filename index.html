@@ -15,33 +15,57 @@
       <button class="header__add-game-button button" type="button">Добавить игру</button>
       <menu class="header__filters">
         <ul class="header__filters-list">
-          <li class="header__filters-item">
-            <span class="header__filters-item-text">Статус прохождения</span>
+          <li class="header__filters-item header__complete">
+            <span class="header__filters-item-text">Прохождение</span>
+            <div class="header__filters-options header__complete-options">
+              <span class="header__filters-option header__complete-option">Не начата</span>
+              <span class="header__filters-option header__complete-option">В процессе</span>
+              <span class="header__filters-option header__complete-option">Пройдена</span>
+            </div>
           </li>
-          <li class="header__filters-item">
+          <li class="header__filters-item header__format">
             <span class="header__filters-item-text">Формат игры</span>
+            <div class="header__filters-options header__format-options">
+              <span class="header__filters-option header__filters-option">Основная игра</span>
+              <span class="header__filters-option header__filters-option">DLC</span>
+            </div>
           </li>
-          <li class="header__filters-item">
+          <li class="header__filters-item header__score">
             <span class="header__filters-item-text">Оценка</span>
+            <div class="header__filters-options header__score-options">
+              <span class="header__filters-option header__score-option">С оценкой</span>
+              <span class="header__filters-option header__score-option">Без оценки</span>
+            </div>
           </li>
-          <li class="header__filters-item">
+          <li class="header__filters-item header__release">
             <span class="header__filters-item-text">Статус релиза</span>
+            <div class="header__filters-options header__release-options">
+              <span class="header__filters-option header__release-option">Вышла</span>
+              <span class="header__filters-option header__release-option">Не вышла</span>
+            </div>
           </li>
-          <li class="header__filters-item">
+          <li class="header__filters-item header__series">
             <span class="header__filters-item-text">Франшиза</span>
+            <div class="header__filters-options header__series-options">
+              <span class="header__filters-option header__series-option">Без франшизы</span>
+            </div>
           </li>
-          <li class="header__filters-item">
+          <li class="header__filters-item header__toplay">
             <span class="header__filters-item-text">Хочу пройти?</span>
+            <div class="header__filters-options header__toplay-options">
+              <span class="header__filters-option header__toplay-option">Да</span>
+              <span class="header__filters-option header__toplay-option">Нет</span>
+            </div>
           </li>
         </ul>
       </menu>
       <div class="header__sort">
-        <span class="header__sort-text">Сортировать по:</span>
-        <select name="header__sort-select" id="header__sort-select" class="header__sort-select">
-          <option value="default" class="header__sort-option">По умолчанию</option>
-          <option value="rate-to-down" class="header__sort-option">По оценке / по убыванию</option>
-          <option value="rate-to-up" class="header__sort-option">По оценке / по возрастанию</option>
-        </select>
+        <span class="header__sort-text">Сортировать:</span>
+        <div class="header__sort-select">
+          <span class="header__sort-option">По умолчанию</span>
+          <span class="header__sort-option">По оценке / по убыванию</span>
+          <span class="header__sort-option">По оценке / по возрастанию</span>
+        </div>
       </div>
     </nav>
   </header>

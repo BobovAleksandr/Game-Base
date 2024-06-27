@@ -21,6 +21,7 @@
 
 .cards__item-image:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .cards__content {
@@ -57,6 +58,10 @@
   margin-left: auto;
 }
 
+.cards__item-sign--toscore:hover {
+  cursor: pointer;
+}
+
 .cards__item-sign--score {
   display: flex;
   justify-content: center;
@@ -79,5 +84,7 @@
   border-radius: 20px;
   padding: 5px 14px;
 }
+
+
 
 

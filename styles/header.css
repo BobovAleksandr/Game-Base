@@ -13,6 +13,7 @@
   background-color: #F05454;
   width: 225px;
   color: #fff;
+  padding: 10px 10px;
 }
 
 .header__add-game-button:hover {

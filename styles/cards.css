@@ -9,7 +9,7 @@
   max-height: 342px;
   border-radius: 10px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 .cards__item-image-container {
@@ -78,9 +78,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F05454;
+  background-color: var(--accent-color);
   font-weight: bold;
-  color: #fff;
+  color: var(--white);
   border-radius: 50%;
   height: 35px;
   width: 35px;
@@ -92,7 +92,7 @@
 .cards__item-sign--release {
   margin-left: auto;
   background-color: rgba(240, 84, 84, 0.5);
-  color: #fff;
+  color: var(--white);
   border-radius: 20px;
   padding: 5px 14px;
 }
@@ -120,7 +120,7 @@
 }
 
 .cards__item-image-button:hover {
-  background-color: #ccc;
+  background-color: var(---lightGray);
 }
 
 

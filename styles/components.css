@@ -1,3 +1,14 @@
+:root {
+  --accent-color: #F05454;
+  --accent-color-light: #ff7d7d;
+  --dark-color: #222831;
+  --dark-color-light: #343d4b;
+  --light-color: #30475E;
+  --light-color-light: #4c6f92;
+  --white: #fff;
+  --lightGray: #ccc;
+}
+
 .button {
   border: none;
   border-radius: 10px;

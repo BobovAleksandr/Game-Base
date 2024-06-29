@@ -33,10 +33,6 @@ function pushGameToArray(card) {
   cards.push(card)
 }
 
-// Слушатель событий на кнопку добавления игры
-const addCardButton = document.querySelector('.header__add-game-button')
-addCardButton.addEventListener('click', () => createCard())
-
 // Создаёт DOM элемент - игру
 function createCardElement(card) {
   let $card = document.createElement('li')
@@ -125,3 +121,29 @@ function renderCard($card) {
 function saveData() {
   localStorage.setItem('cards', cards)
 }
+
+
+// Модальное окно
+const modalAddGame = document.querySelector('.modal__add-game')
+const addCardButton = document.querySelector('.header__add-game-button')
+const cancelModal = document.querySelector('.modal__cancel')
+addCardButton.addEventListener('click', () => modalAddGame.showModal())
+cancelModal.addEventListener('click', () => modalAddGame.close())
+const handleModalClick = (event) => {
+  const modalRect = modalAddGame.getBoundingClientRect();
+
+  if (
+    event.clientX < modalRect.left ||
+    event.clientX > modalRect.right ||
+    event.clientY < modalRect.top ||
+    event.clientY > modalRect.bottom
+  ) {
+    modalAddGame.close();
+  }
+};
+
+modalAddGame.addEventListener("click", handleModalClick);
+
+
+
+// addCardButton.addEventListener('click', () => createCard())

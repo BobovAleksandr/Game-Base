@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles/components.css">
 </head>
 <body class="page">
-  <dialog class="modal__add-game" open>
+  <dialog class="modal__add-game">
     <form action="" class="modal__form">
       <h2 class="modal__title">Добавить игру</h2>
       <div class="modal__name--container modal__container">
@@ -51,32 +51,34 @@
         <label for="modal__score--input" class="modal__score--label modal__label">
           Оценка
         </label>
-        <input class="modal__score--input modal__input" id="modal__score--input" type="number">
+        <input class="modal__score--input modal__input" id="modal__score--input" type="number" min="1" max="5" step="0.1">
       </div>
       <div class="modal__complete--container modal__container">
         <label for="modal__complete--input" class="modal__complete--label modal__label">
           Прохождение
         </label>
         <select class="modal__complete--input modal__input" id="modal__complete--input" required>
+          <option value="not-begin">Не начата</option>
           <option value="completed">Пройдена</option>
           <option value="in-progress">В процессе</option>
-          <option value="not-negin">Не начата</option>
         </select>
       </div>
       <div class="modal__platinum--container modal__container">
         <label for="modal__platinum--input" class="modal__platinum--label modal__label">
-          Прохождение на 100%
+          Пройдена на 100%
         </label>
-        <input class="modal__platinum--input modal__input" id="modal__platinum--input" type="checkbox">
+        <input class="modal__platinum--input modal__checkbox" id="modal__platinum--input" type="checkbox">
       </div>
       <div class="modal__platinum--container modal__container">
         <label for="modal__to-play--input" class="modal__to-play--label modal__label">
           Хочу пройти
         </label>
-        <input class="modal__to-play--input modal__input" id="modal__to-play--input" type="checkbox">
+        <input class="modal__to-play--input modal__checkbox" id="modal__to-play--input" type="checkbox">
       </div>
-      <button class="modal__cancel--input" type="button">Отмена</button>
-      <button class="modal__submit" type="submit">Добавить</button>
+      <div class="modal__buttons">
+        <button class="modal__cancel button modal__button" type="button">Отмена</button>
+        <button class="modal__submit button modal__button" type="submit">Добавить</button>
+      </div>
     </form>
   </dialog>
   <header class="page__header">

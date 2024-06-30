@@ -22,9 +22,9 @@
       </div>
       <div class="modal__poster--container modal__container">
         <label for="modal__poster--input" class="modal__poster--label modal__label">
-          Постер
+          Ссылка на постер
         </label>
-        <input class="modal__poster--input modal__input" id="modal__poster--input" type="file" required>
+        <input class="modal__poster--input modal__input" id="modal__poster--input" type="text" required>
       </div>
       <div class="modal__format--container modal__container">
         <label for="modal__format--select" class="modal__format--label modal__label">
@@ -35,41 +35,42 @@
           <option value="dlc">Дополнение</option>
         </select>
       </div>
-      <div class="modal__release--container modal__container">
-        <label for="modal__release--input" class="modal__release--label modal__label">
-          Дата выхода
-        </label>
-        <input class="modal__release--input modal__input" id="modal__release--input" type="date">
-      </div>
       <div class="modal__series--container modal__container">
         <label for="modal__series--input" class="modal__series--label modal__label">
           Франшиза
         </label>
         <input class="modal__series--input modal__input" id="modal__series--input" type="text">
       </div>
-      <div class="modal__score--container modal__container">
-        <label for="modal__score--input" class="modal__score--label modal__label">
-          Оценка
-        </label>
-        <input class="modal__score--input modal__input" id="modal__score--input" type="number" min="1" max="5" step="0.1">
-      </div>
       <div class="modal__complete--container modal__container">
         <label for="modal__complete--input" class="modal__complete--label modal__label">
           Прохождение
         </label>
         <select class="modal__complete--input modal__input" id="modal__complete--input" required>
+          <option disabled selected value=""></option>
           <option value="not-begin">Не начата</option>
           <option value="completed">Пройдена</option>
           <option value="in-progress">В процессе</option>
         </select>
       </div>
-      <div class="modal__platinum--container modal__container">
+      <div class="modal__release--container modal__container hidden">
+        <label for="modal__release--input" class="modal__release--label modal__label">
+          Дата выхода
+        </label>
+        <input class="modal__release--input modal__input" id="modal__release--input" type="date">
+      </div>
+      <div class="modal__score--container modal__container hidden">
+        <label for="modal__score--input" class="modal__score--label modal__label">
+          Оценка
+        </label>
+        <input class="modal__score--input modal__input" id="modal__score--input" type="number" min="1" max="5" step="0.1">
+      </div>
+      <div class="modal__platinum--container modal__container hidden">
         <label for="modal__platinum--input" class="modal__platinum--label modal__label">
           Пройдена на 100%
         </label>
         <input class="modal__platinum--input modal__checkbox" id="modal__platinum--input" type="checkbox">
       </div>
-      <div class="modal__platinum--container modal__container">
+      <div class="modal__to-play--container modal__container hidden">
         <label for="modal__to-play--input" class="modal__to-play--label modal__label">
           Хочу пройти
         </label>
@@ -78,6 +79,77 @@
       <div class="modal__buttons">
         <button class="modal__cancel button modal__button" type="button">Отмена</button>
         <button class="modal__submit button modal__button" type="submit">Добавить</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal__edit-game">
+    <form action="" class="modal__form">
+      <h2 class="modal__title">Редактировать игру</h2>
+      <div class="modal__name--container modal__container">
+        <label for="modal__name--input" class="modal__label">
+          Название
+        </label>
+        <input class="modal__name--input modal__input" id="modal__name--input" type="text" required value="">
+      </div>
+      <div class="modal__poster--container modal__container">
+        <label for="modal__poster--input" class="modal__poster--label modal__label">
+          Ссылка на постер
+        </label>
+        <input class="modal__poster--input modal__input" id="modal__poster--input" type="text" required>
+      </div>
+      <div class="modal__format--container modal__container">
+        <label for="modal__format--select" class="modal__format--label modal__label">
+          Формат игры
+        </label>
+        <select class="modal__format--select modal__input" id="modal__format--select" required>
+          <option value="game">Основная игра</option>
+          <option value="dlc">Дополнение</option>
+        </select>
+      </div>
+      <div class="modal__series--container modal__container">
+        <label for="modal__series--input" class="modal__series--label modal__label">
+          Франшиза
+        </label>
+        <input class="modal__series--input modal__input" id="modal__series--input" type="text">
+      </div>
+      <div class="modal__complete--container modal__container">
+        <label for="modal__complete--input" class="modal__complete--label modal__label">
+          Прохождение
+        </label>
+        <select class="modal__complete--input modal__input" id="modal__complete--input" required>
+          <option disabled selected value=""></option>
+          <option value="not-begin">Не начата</option>
+          <option value="completed">Пройдена</option>
+          <option value="in-progress">В процессе</option>
+        </select>
+      </div>
+      <div class="modal__release--container modal__container hidden">
+        <label for="modal__release--input" class="modal__release--label modal__label">
+          Дата выхода
+        </label>
+        <input class="modal__release--input modal__input" id="modal__release--input" type="date">
+      </div>
+      <div class="modal__score--container modal__container hidden">
+        <label for="modal__score--input" class="modal__score--label modal__label">
+          Оценка
+        </label>
+        <input class="modal__score--input modal__input" id="modal__score--input" type="number" min="1" max="5" step="0.1">
+      </div>
+      <div class="modal__platinum--container modal__container hidden">
+        <label for="modal__platinum--input" class="modal__platinum--label modal__label">
+          Пройдена на 100%
+        </label>
+        <input class="modal__platinum--input modal__checkbox" id="modal__platinum--input" type="checkbox">
+      </div>
+      <div class="modal__to-play--container modal__container hidden">
+        <label for="modal__to-play--input" class="modal__to-play--label modal__label">
+          Хочу пройти
+        </label>
+        <input class="modal__to-play--input modal__checkbox" id="modal__to-play--input" type="checkbox">
+      </div>
+      <div class="modal__buttons">
+        <button class="modal__cancel button modal__button" type="button">Отмена</button>
+        <button class="modal__submit button modal__button" type="submit">Готово</button>
       </div>
     </form>
   </dialog>
@@ -142,12 +214,11 @@
   </header>
   <main class="page__main">
     <ul class="cards__list">
-      <li class="cards__item">
+      <!-- <li class="cards__item">
         <div class="cards__item-image-container">
           <div class="cards__item-image-menu">
             <button class="cards__item-image-button button card-button-delete" type="button">Удалить</button>
             <button class="cards__item-image-button button card-button-edit" type="button">Редактировать</button>
-            <button class="cards__item-image-button button card-button-toplay" type="button">Хочу пройти</button>
           </div>
           <img src="./images/posters/mL6876_1024x1024.webp" alt="Cyberpunk 2077 Phantom Liberty poster" class="cards__item-image">
         </div>
@@ -161,27 +232,7 @@
             <span class="cards__item-sign--release hidden">30.08.2024</span>
           </div>
         </div>
-      </li>
-      <li class="cards__item">
-        <div class="cards__item-image-container">
-          <div class="cards__item-image-menu">
-            <button class="cards__item-image-button button card-button-delete" type="button">Удалить</button>
-            <button class="cards__item-image-button button card-button-edit" type="button">Редактировать</button>
-            <button class="cards__item-image-button button card-button-toplay" type="button">Хочу пройти</button>
-          </div>
-          <img src="./images/posters/mL6876_1024x1024.webp" alt="Cyberpunk 2077 Phantom Liberty poster" class="cards__item-image">
-        </div>
-        <div class="cards__content">
-          <h3 class="cards__item-title">Cyberpunk 2077 - Phantom Liberty</h3>
-          <div class="cards__item-signs">
-            <img src="./images/toplay.svg" alt="" class="cards__item-sign--toplay">
-            <img src="./images/dlc.svg" alt="" class="cards__item-sign--dlc">
-            <img src="./images/toscore.svg" alt="" class="cards__item-sign--toscore">
-            <span class="cards__item-sign--score hidden">4.7</span>
-            <span class="cards__item-sign--release hidden">30.08.2024</span>
-          </div>
-        </div>
-      </li>
+      </li> -->
     </ul>
   </main>
   <script src="./script.js"></script>

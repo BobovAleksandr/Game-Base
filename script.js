@@ -1,130 +1,106 @@
-let cards = []
+let games = []
 
-// let card = {
-//   id,
-//   name,
-//   posterUrl,
-//   complete, // true / false
-//   format, // game / dlc
-//   score,
-//   releaseDate,
-//   series,
-//   toPlay,
-// }
-
-class Card {
-  constructor(id = 0, name = '', posterUrl = './images/posters/placeholder.png', complete = false, format = 'game', score = 0, releaseDate = '', series = '', toPlay = false, platinum = false) {
+// Конструктор игр
+class Game {
+  constructor(id = 0, name = '', posterUrl = './images/posters/placeholder.png', isCompleted = false, isDlc = false, score = '-', releaseDate = '', series = '', isToPlay = false, isPlatinum = false) {
     this.id = id
     this.name = name
     this.posterUrl = posterUrl
-    this.complete = complete
-    this.format = format
+    this.isCompleted = isCompleted
+    this.isDLc = isDlc
     this.score = score
     this.releaseDate = releaseDate
     this.series = series
-    this.toPlay = toPlay
-    this.platinum = platinum
+    this.isToPlay = isToPlay
+    this.isPlatinum = isPlatinum
   }
 }
 
 // Добавляет игру в массив games с новым id
-function pushGameToArray(card) {
-  card.id = cards.length
-  cards.push(card)
+function pushGameToArray(game) {
+  game.id = games.length
+  games.push(game)
 }
 
 // Создаёт DOM элемент - игру
-function createCardElement(card) {
-  let $card = document.createElement('li')
-  $card.classList.add('cards__item')
-  let $cardImageContainer = document.createElement('div')
-  $cardImageContainer.classList.add('cards__item-image-container')
-  let $cardImageMenu = document.createElement('div')
-  $cardImageMenu.classList.add('cards__item-image-menu')
-  let $cardImageButtonDelete = document.createElement('button')
-  $cardImageButtonDelete.classList.add('cards__item-image-button', 'button', 'card-button-delete')
-  $cardImageButtonDelete.type = 'button'
-  $cardImageButtonDelete.textContent = 'Удалить'
-  let $cardImageButtonEdit = document.createElement('button')
-  $cardImageButtonEdit.classList.add('cards__item-image-button', 'button', 'card-button-edit')
-  $cardImageButtonEdit.type = 'button'
-  $cardImageButtonEdit.textContent = 'Редактировать'
-  let $cardImage = document.createElement('img')
-  $cardImage.classList.add('cards__item-image')
-  $cardImage.alt = card.name + ' poster'
-  $cardImage.src = card.posterUrl
-  $cardImage.width = 225
-  $cardImage.height = 300
-  let $cardContent = document.createElement('div')
-  $cardContent.classList.add('cards__content')
-  let $cardTitle = document.createElement('h3')
-  $cardTitle.classList.add('cards__item-title')
-  $cardTitle.textContent = card.name
-  let $cardSigns = document.createElement('div')
-  $cardSigns.classList.add('cards__item-signs')
-  let $cardSignToPlay = document.createElement('img')
-  $cardSignToPlay.classList.add('cards__item-sign--toplay')
-  if (!card.toPlay) {
-    $cardSignToPlay.classList.add('hidden')
+function createGameElement(game) {
+  let $game = document.createElement('li')
+  $game.classList.add('games__list-item')
+  let $gameArticle = document.createElement('article')
+  $gameArticle.classList.add('games__list-card', 'game')
+  let $gamePosterCaintainer = document.createElement('div')
+  $gamePosterCaintainer.classList.add('game__poster-container')
+  let $gamePosterImage = document.createElement('img')
+  $gamePosterImage.classList.add('game__poster-image')
+  $gamePosterImage.loading = 'lazy'
+  $gamePosterImage.alt = game.name + ' poster'
+  $gamePosterImage.src = game.posterUrl
+  let $gameContentCaintainer = document.createElement('div')
+  $gameContentCaintainer.classList.add('game__content')
+  let $gameTitle = document.createElement('h2')
+  $gameTitle.classList.add('game__title')
+  $gameTitle.textContent = game.name
+  let $gameStatusDlc = document.createElement('span')
+  $gameStatusDlc.classList.add('game__status', 'game__status--dlc')
+  $gameStatusDlc.textContent = 'DLC'
+  if (game.isDLc === false) {
+    $gameStatusDlc.classList.add('visually-hidden')
   }
-  $cardSignToPlay.alt = ''
-  $cardSignToPlay.src = './images/toplay.svg'
-  let $cardSignDlc = document.createElement('img')
-  $cardSignDlc.classList.add('cards__item-sign--dlc')
-  if (card.format === 'game') {
-    $cardSignDlc.classList.add('hidden')
+  let $gameStatusToPlay = document.createElement('span')
+  $gameStatusToPlay.classList.add('game__status', 'game__status--toplay')
+  let $gameStatusToPlayImage = document.createElement('img')
+  $gameStatusToPlayImage.classList.add('game__status-image')
+  $gameStatusToPlayImage.src = './images/play.svg'
+  $gameStatusToPlayImage.alt = ''
+  if (game.isToPlay === false) {
+    $gameStatusToPlay.classList.add('half-opacity')
   }
-  $cardSignDlc.alt = ''
-  $cardSignDlc.src = './images/dlc.svg'
-  let $cardSignToScore = document.createElement('img')
-  $cardSignToScore.classList.add('cards__item-sign--toscore')
-  if (card.complete === 'completed') {
-    $cardSignToScore.classList.add('hidden')
+  if (game.isCompleted === true) {
+    $gameStatusToPlay.classList.add('visually-hidden')
   }
-  $cardSignToScore.alt = ''
-  $cardSignToScore.src = './images/toscore.svg'
-  let $cardSignScore = document.createElement('span')
-  $cardSignScore.classList.add('cards__item-sign--score')
-  if (card.score === '') {
-    $cardSignScore.classList.add('hidden')
+  let $gameStatusPlatinum = document.createElement('span')
+  $gameStatusPlatinum.classList.add('game__status', 'game__status--platinum')
+  $gameStatusPlatinum.textContent = '100%'
+  if (game.isPlatinum === false) {
+    $gameStatusPlatinum.classList.add('visually-hidden')
   }
-  $cardSignScore.textContent = card.score ?? ''
-  let $cardSignRelease = document.createElement('span')
-  $cardSignRelease.classList.add('cards__item-sign--release')
-  let date = new Date()
-  let todayDate = `${date.getFullYear()}-${(("0" + (new Date().getMonth() + 1)).slice(-2))}-${date.getDate()}`
-  if (card.releaseDate < todayDate) {
-    $cardSignRelease.classList.add('hidden')
-    
+  let $gameStatusReleaseDate = document.createElement('span')
+  $gameStatusReleaseDate.classList.add('game__status', 'game__status--release-date')
+  if (game.releaseDate === '') {
+    $gameStatusReleaseDate.classList.add('visually-hidden')
   } else {
-    $cardSignToScore.classList.add('hidden')
+    $gameStatusReleaseDate.textContent = game.releaseDate.split('-').reverse().join('.')
   }
-  $cardSignRelease.textContent = card.releaseDate ?? ''
-  $card.appendChild($cardImageContainer)
-  $cardImageContainer.appendChild($cardImageMenu)
-  $cardImageMenu.appendChild($cardImageButtonDelete)
-  $cardImageMenu.appendChild($cardImageButtonEdit)
-  $cardImageContainer.appendChild($cardImage)
-  $card.appendChild($cardContent)
-  $cardContent.appendChild($cardTitle)
-  $cardContent.appendChild($cardSigns)
-  $cardSigns.appendChild($cardSignToPlay)
-  $cardSigns.appendChild($cardSignDlc)
-  $cardSigns.appendChild($cardSignToScore)
-  $cardSigns.appendChild($cardSignScore)
-  $cardSigns.appendChild($cardSignRelease)
-  return $card
+  let $gameStatusScore = document.createElement('span')
+  $gameStatusScore.classList.add('game__status', 'game__status--score')
+  $gameStatusScore.textContent = '-'
+  if (game.score === '') {
+    $gameStatusScore.classList.add('half-opacity')
+  } else {
+    $gameStatusScore.textContent = game.score
+  }
+  $game.appendChild($gameArticle)
+  $gameArticle.appendChild($gamePosterCaintainer)
+  $gamePosterCaintainer.appendChild($gamePosterImage)
+  $gameArticle.appendChild($gameContentCaintainer)
+  $gameContentCaintainer.appendChild($gameTitle)
+  $gameContentCaintainer.appendChild($gameStatusDlc)
+  $gameContentCaintainer.appendChild($gameStatusToPlay)
+  $gameStatusToPlay.appendChild($gameStatusToPlayImage)
+  $gameContentCaintainer.appendChild($gameStatusPlatinum)
+  $gameContentCaintainer.appendChild($gameStatusReleaseDate)
+  $gameContentCaintainer.appendChild($gameStatusScore)
+  return $game  
 }
 
 // Рендерит игру на страницу
-function renderCard($card) {
-  let $cardsList = document.querySelector('.cards__list')
-  $cardsList.appendChild($card)
+function renderGame($game) {
+  let $gameList = document.querySelector('.games_list')
+  $gameList.appendChild($game)
 }
 
-// Сохраняет массив cards в LocalStorage
 function saveData() {
-  localStorage.setItem('cards', JSON.stringify(cards))
+  localStorage.setItem('games', JSON.stringify(games))
   console.log('data saved')
 }
 
@@ -135,10 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Загружает массив cards из LocalStorage и рендерит игры на страницу
 function loadData() {
-  if (localStorage.getItem('cards')) {
-    cards = JSON.parse(localStorage.getItem('cards'))
-    cards.forEach(card => {
-      renderCard(createCardElement(card))
+  if (localStorage.getItem('games')) {
+    games = JSON.parse(localStorage.getItem('games'))
+    games.forEach(game => {
+      renderGame(createGameElement(game))
     })
   }
 }
@@ -146,17 +122,23 @@ function loadData() {
 // -------------------------------------------------------------------------
 // ------------------------------------------------------------------------- МОДАЛЬНОЕ ОКНО / ДОБАВЛЕНИЕ ИГРЫ
 // -------------------------------------------------------------------------
-const $modalAddGame = document.querySelector('.modal__add-game')
-const $formAddGame = document.querySelector('.modal__add-game .modal__form')
-const $addCardButton = document.querySelector('.header__add-game-button')
-const $cancelModal = document.querySelector('.modal__cancel')
+
+const $addGameButton = document.querySelector('.header__button-add')
+const $modalAddGame = document.querySelector('.modal--create')
+const $modalAddGameForm = document.querySelector('.modal--create .modal__form')
+const $modalAddGameSubmitButton = document.querySelector('.modal__button--submit')
+const $modalAddGameCancelButton = document.querySelector('.modal__button--cancel')
 
 // Открытие и закрытие
-$addCardButton.addEventListener('click', () => $modalAddGame.showModal())
-$cancelModal.addEventListener('click', () => $modalAddGame.close())
+$addGameButton.addEventListener('click', () => $modalAddGame.showModal())
+
+$modalAddGameCancelButton.addEventListener('click', () => {
+  clearModalFields($modalAddGame)
+  $modalAddGame.close()
+})
+
 const handleAddModalClick = (event) => {
   const modalRect = $modalAddGame.getBoundingClientRect();
-
   if (
     event.clientX < modalRect.left ||
     event.clientX > modalRect.right ||
@@ -164,167 +146,67 @@ const handleAddModalClick = (event) => {
     event.clientY > modalRect.bottom
   ) {
     $modalAddGame.close()
+    clearModalFields($modalAddGame)
   }
 }
 $modalAddGame.addEventListener("click", handleAddModalClick)
+$modalAddGame.addEventListener("cancel", () => {
+  clearModalFields($modalAddGame)
+})
+
 
 // Создание игры
-$formAddGame.addEventListener('submit', (event) => {
+$modalAddGameForm.addEventListener('submit', (event) => {
   // event.preventDefault()
   $modalAddGame.close()
   let id = 0
-  let name = $modalAddGame.querySelector('.modal__name--input').value
-  let posterUrl = $modalAddGame.querySelector('.modal__poster--input').value
-  let format = $modalAddGame.querySelector('.modal__format--select').value
-  let series = $modalAddGame.querySelector('.modal__series--input').value ?? false
-  let complete = $modalAddGame.querySelector('.modal__complete--input').value
-  let releaseDate = $modalAddGame.querySelector('.modal__release--input').value ?? false
-  let score = $modalAddGame.querySelector('.modal__score--input').value ?? false
-  let toPlay = $modalAddGame.querySelector('.modal__to-play--input').checked
-  let platinum = $modalAddGame.querySelector('.modal__platinum--input').checked
-  let newGame = new Card(id, name, posterUrl, complete, format, score, releaseDate, series, toPlay, platinum)
+  let name = $modalAddGame.querySelector('.modal__input--name').value
+  let posterUrl = $modalAddGame.querySelector('.modal__input--poster').value
+  let isDlc = $modalAddGame.querySelector('.modal__input--is-dlc').checked
+  let series = $modalAddGame.querySelector('.modal__input--series').value ?? false
+  let isCompleted = $modalAddGame.querySelector('.modal__input--is-completed').checked
+  let releaseDate = $modalAddGame.querySelector('.modal__input--release-date').value ?? false
+  let score = $modalAddGame.querySelector('.modal__input--score').value ?? false
+  let isToPlay = $modalAddGame.querySelector('.modal__input--is-to-play').checked
+  let isPlatinum = $modalAddGame.querySelector('.modal__input--is-platinum').checked
+  let newGame = new Game(id, name, posterUrl, isCompleted, isDlc, score, releaseDate, series, isToPlay, isPlatinum)
   pushGameToArray(newGame)
-  renderCard(createCardElement(newGame))
+  renderGame(createGameElement(newGame))
   saveData()
 })
 
 // Управление полями модального окна при создании игры
 $modalAddGame.addEventListener('change', (event) => {
-  if (event.target.classList.contains('modal__input') || event.target.classList.contains('modal__checkbox')) {
-    checkCardInputFields($formAddGame)
+  if (event.target.classList.contains('modal__input')) {
+    checkModalFields($modalAddGame)
   }
 })
 
-
-// -------------------------------------------------------------------------
-// ------------------------------------------------------------------------- МОДАЛЬНОЕ ОКНО / РЕДАКТИРОВАНИЕ ИГРЫ
-// -------------------------------------------------------------------------
-const $formEditGame = document.querySelector('.modal__edit-game .modal__form')
-const $editModal = document.querySelector('.modal__edit-game')
-const $sditModalCancel = $editModal.querySelector('.modal__cancel')
-const $sditModalSubmit = $editModal.querySelector('.modal__submit')
-
-// Управление полями модального окна при редактировании игры
-$formEditGame.addEventListener('change', (event) => {
-  if (event.target.classList.contains('modal__input') || event.target.classList.contains('modal__checkbox')) {
-    checkCardInputFields($formEditGame)
-  }
-})
-
-// Кнопка отменты
-$sditModalCancel.addEventListener('click', () => {
-  $editModal.close()
-})
-
-const handleEditModalClick = (event) => {
-  const modalRect = $editModal.getBoundingClientRect();
-
-  if (
-    event.clientX < modalRect.left ||
-    event.clientX > modalRect.right ||
-    event.clientY < modalRect.top ||
-    event.clientY > modalRect.bottom
-  ) {
-    $editModal.close()
-  }
-}
-$editModal.addEventListener("click", handleEditModalClick)
-
-// Кнопка "Готово"
-$editModal.addEventListener('submit', (event) => {
-  event.preventDefault
-  $editModal.close()
-  let currentCardObject = cards.find(card => card.name === $editModal.querySelector('.modal__name--input').value)
-  editCard(currentCardObject)
-})
-
-// Открытие окна редактирования игры
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('card-button-edit')) {
-    $editModal.showModal()
-    let $currentCard = event.target.closest('.cards__item')
-    let cardObject = cards.find(card => card.name === $currentCard.querySelector('.cards__item-title').textContent)
-    $editModal.querySelector('.modal__name--input').value = cardObject.name
-    $editModal.querySelector('.modal__poster--input').value = cardObject.posterUrl
-    $editModal.querySelector('.modal__format--select').value = cardObject.format
-    $editModal.querySelector('.modal__series--input').value = cardObject.series
-    $editModal.querySelector('.modal__complete--input').value = cardObject.complete
-    $editModal.querySelector('.modal__release--input').value = cardObject.releaseDate
-    $editModal.querySelector('.modal__score--input').value = cardObject.score
-    $editModal.querySelector('.modal__platinum--input').checked = cardObject.platinum
-    $editModal.querySelector('.modal__to-play--input').checked = cardObject.toPlay
-    checkCardInputFields($editModal)
-  }
-})
-
-// Редактирование игры
-function editCard(cardObject) {
-  cardObject.name = $editModal.querySelector('.modal__name--input').value
-  cardObject.posterUrl = $editModal.querySelector('.modal__poster--input').value
-  cardObject.format = $editModal.querySelector('.modal__format--select').value
-  cardObject.series = $editModal.querySelector('.modal__series--input').value
-  cardObject.complete = $editModal.querySelector('.modal__complete--input').value
-  cardObject.releaseDate = $editModal.querySelector('.modal__release--input').value
-  cardObject.score = $editModal.querySelector('.modal__score--input').value
-  cardObject.platinum = $editModal.querySelector('.modal__platinum--input').checked
-  cardObject.toPlay = $editModal.querySelector('.modal__to-play--input').checked
-  saveData()
-}
-
-// Управление полями модальных окон
-function checkCardInputFields($modal) {
-  console.log('checkCardInputFields')
-  let $name = $modal.querySelector('.modal__name--input')
-  let $posterUrl = $modal.querySelector('.modal__poster--input')
-  let $format = $modal.querySelector('.modal__format--select')
-  let $series = $modal.querySelector('.modal__series--input')
-  let $complete = $modal.querySelector('.modal__complete--input')
-  let $releaseDate = $modal.querySelector('.modal__release--input')
-  let $score = $modal.querySelector('.modal__score--input')
-  let $platinum = $modal.querySelector('.modal__platinum--input')
-  let $toPlay = $modal.querySelector('.modal__to-play--input')
-  if ($complete.value === 'not-begin') {
-    $releaseDate.closest('.modal__container').classList.remove('hidden')
-    $toPlay.closest('.modal__container').classList.remove('hidden')
-    $score.closest('.modal__container').classList.add('hidden')
-    $score.value = ''
-    $platinum.closest('.modal__container').classList.add('hidden')
-    $platinum.checked = false
-  } else if ($complete.value === 'in-progress') {
-    $toPlay.closest('.modal__container').classList.remove('hidden')
-    $releaseDate.closest('.modal__container').classList.add('hidden')
-    $releaseDate.value = ''
-    $score.closest('.modal__container').classList.add('hidden')
-    $score.value = ''
-    $platinum.closest('.modal__container').classList.add('hidden')
-    $platinum.checked = false
-  } else if ($complete.value === 'completed') {
-    $score.closest('.modal__container').classList.remove('hidden')
-    $platinum.closest('.modal__container').classList.remove('hidden')
-    $releaseDate.closest('.modal__container').classList.add('hidden')
-    $releaseDate.value = ''
-    $toPlay.closest('.modal__container').classList.add('hidden')
-    $toPlay.checked = false
+// Проферка и показ / скрытие полей модального окна
+function checkModalFields($modal) {
+  let $isCompleted = $modal.querySelector('.modal__input--is-completed')
+  let $isToPlay = $modal.querySelector('.modal__input--is-to-play')
+  let $isPlatinum = $modal.querySelector('.modal__input--is-platinum')
+  let $score = $modal.querySelector('.modal__input--score')
+  if ($isCompleted.checked) {
+    $isToPlay.closest('.modal__field-item').classList.add('hidden')
+    $isPlatinum.closest('.modal__field-item').classList.remove('hidden')
+    $score.closest('.modal__field-item').classList.remove('hidden')
+  } else {
+    $isToPlay.closest('.modal__field-item').classList.remove('hidden')
+    $isPlatinum.closest('.modal__field-item').classList.add('hidden')
+    $score.closest('.modal__field-item').classList.add('hidden')
   }
 }
 
-
-// -------------------------------------------------------------------------
-// ------------------------------------------------------------------------- УДАЛЕНИЕ ИГРЫ
-// -------------------------------------------------------------------------
-
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('card-button-delete')) {
-    let $currentCard = event.target.closest('.cards__item')
-    $currentCard.remove()
-    let cardObject = cards.find(card => card.name === $currentCard.querySelector('.cards__item-title').textContent)
-    deleteCard(cardObject)
+// Очистка полей модального окна при закрытии
+function clearModalFields($modal) {
+  let $modalInputs = [...$modal.querySelectorAll('.modal__input')]
+  for (let input of $modalInputs) {
+    if (input.type === 'checkbox') {
+      input.checked = false
+    } else {
+      input.value = ''
+    }
   }
-})
-function deleteCard(cardObject) {
-  cards = cards.filter(card => card.name !== cardObject.name)
-  cards.forEach((card, index) => {
-    card.id = index
-  })
-  saveData()
 }

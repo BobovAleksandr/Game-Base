@@ -3,237 +3,200 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Games Base</title>
-  <link rel="stylesheet" href="/styles/global.css">
-  <link rel="stylesheet" href="/styles/header.css">
-  <link rel="stylesheet" href="/styles/cards.css">
-  <link rel="stylesheet" href="/styles/dialog.css">
-  <link rel="stylesheet" href="/styles/components.css">
+  <title>Game Base</title>
+  <link rel="stylesheet" href="./styles/fonts.css">
+  <link rel="stylesheet" href="./styles/variables.css">
+  <link rel="stylesheet" href="./styles/global.css">
+  <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body class="page">
-  <dialog class="modal__add-game">
-    <form action="" class="modal__form">
-      <h2 class="modal__title">Добавить игру</h2>
-      <div class="modal__name--container modal__container">
-        <label for="modal__name--input" class="modal__label">
-          Название
-        </label>
-        <input class="modal__name--input modal__input" id="modal__name--input" type="text" required value="">
-      </div>
-      <div class="modal__poster--container modal__container">
-        <label for="modal__poster--input" class="modal__poster--label modal__label">
-          Ссылка на постер
-        </label>
-        <input class="modal__poster--input modal__input" id="modal__poster--input" type="text" required>
-      </div>
-      <div class="modal__format--container modal__container">
-        <label for="modal__format--select" class="modal__format--label modal__label">
-          Формат игры
-        </label>
-        <select class="modal__format--select modal__input" id="modal__format--select" required>
-          <option value="game">Основная игра</option>
-          <option value="dlc">Дополнение</option>
-        </select>
-      </div>
-      <div class="modal__series--container modal__container">
-        <label for="modal__series--input" class="modal__series--label modal__label">
-          Франшиза
-        </label>
-        <input class="modal__series--input modal__input" id="modal__series--input" type="text">
-      </div>
-      <div class="modal__complete--container modal__container">
-        <label for="modal__complete--input" class="modal__complete--label modal__label">
-          Прохождение
-        </label>
-        <select class="modal__complete--input modal__input" id="modal__complete--input" required>
-          <option disabled selected value=""></option>
-          <option value="not-begin">Не начата</option>
-          <option value="completed">Пройдена</option>
-          <option value="in-progress">В процессе</option>
-        </select>
-      </div>
-      <div class="modal__release--container modal__container hidden">
-        <label for="modal__release--input" class="modal__release--label modal__label">
-          Дата выхода
-        </label>
-        <input class="modal__release--input modal__input" id="modal__release--input" type="date">
-      </div>
-      <div class="modal__score--container modal__container hidden">
-        <label for="modal__score--input" class="modal__score--label modal__label">
-          Оценка
-        </label>
-        <input class="modal__score--input modal__input" id="modal__score--input" type="number" min="1" max="5" step="0.1">
-      </div>
-      <div class="modal__platinum--container modal__container hidden">
-        <label for="modal__platinum--input" class="modal__platinum--label modal__label">
-          Пройдена на 100%
-        </label>
-        <input class="modal__platinum--input modal__checkbox" id="modal__platinum--input" type="checkbox">
-      </div>
-      <div class="modal__to-play--container modal__container hidden">
-        <label for="modal__to-play--input" class="modal__to-play--label modal__label">
-          Хочу пройти
-        </label>
-        <input class="modal__to-play--input modal__checkbox" id="modal__to-play--input" type="checkbox">
-      </div>
+  <dialog class="modal modal--create">
+    <form class="modal__form">
+      <h2 class="modal__title">
+        Добавить игру
+      </h2>
+      <ul class="modal__field-list">
+        <li class="modal__field-item">
+          <label  class="modal__label"for="modal__input--name">Название</label>
+          <input type="text" class="modal__input modal__input--name" id="modal__input--name" required>
+        </li>
+        <li class="modal__field-item">
+          <label class="modal__label" for="modal__input--poster">Постер</label>
+          <input type="text" class="modal__input modal__input--poster" id="modal__input--poster">
+        </li>
+        <li class="modal__field-item">
+          <label  class="modal__label"for="modal__input--series">Франшиза</label>
+          <input type="text" class="modal__input modal__input--series" id="modal__input modal__input--series">
+        </li>
+        <li class="modal__field-item">
+          <label  class="modal__label"for="modal__input--release-date">Дата выхода</label>
+          <input type="date" class="modal__input modal__input--release-date" id="modal__input--release-date">
+        </li>
+        <li class="modal__field-item">
+          <label  class="modal__label"for="modal__input--is-dlc">DLC</label>
+          <input type="checkbox" class="modal__input modal__input--is-dlc" id="modal__input--is-dlc">
+        </li>
+        <li class="modal__field-item">
+          <label  class="modal__label"for="modal__input--is-completed">Пройдена</label>
+          <input type="checkbox" class="modal__input modal__input--is-completed" id="modal__input--is-completed">
+        </li>
+        <li class="modal__field-item">
+          <label  class="modal__label"for="modal__input--is-to-play">Хочу пройти</label>
+          <input type="checkbox" class="modal__input modal__input--is-to-play" id="modal__input--is-to-play">
+        </li>
+        <li class="modal__field-item hidden">
+          <label  class="modal__label"for="modal__input--is-platinum">Прохождение на 100%</label>
+          <input type="checkbox" class="modal__input modal__input--is-platinum" id="modal__input--is-platinum">
+        </li>
+        <li class="modal__field-item hidden">
+          <label  class="modal__label"for="modal__input--score">Оценка</label>
+          <input type="number" class="modal__input modal__input--score" id="modal__input--score" min="0.1" max="5.0" step="0.1">
+        </li>
+      </ul>
       <div class="modal__buttons">
-        <button class="modal__cancel button modal__button" type="button">Отмена</button>
-        <button class="modal__submit button modal__button" type="submit">Добавить</button>
+        <button class="button modal__button modal__button--cancel" type="button">Отмена</button>
+        <button class="button modal__button modal__button--submit" type="submit">Добавить</button>
       </div>
     </form>
   </dialog>
-  <dialog class="modal__edit-game">
-    <form action="" class="modal__form">
-      <h2 class="modal__title">Редактировать игру</h2>
-      <div class="modal__name--container modal__container">
-        <label for="modal__name--input" class="modal__label">
-          Название
-        </label>
-        <input class="modal__name--input modal__input" id="modal__name--input" type="text" required value="">
-      </div>
-      <div class="modal__poster--container modal__container">
-        <label for="modal__poster--input" class="modal__poster--label modal__label">
-          Ссылка на постер
-        </label>
-        <input class="modal__poster--input modal__input" id="modal__poster--input" type="text" required>
-      </div>
-      <div class="modal__format--container modal__container">
-        <label for="modal__format--select" class="modal__format--label modal__label">
-          Формат игры
-        </label>
-        <select class="modal__format--select modal__input" id="modal__format--select" required>
-          <option value="game">Основная игра</option>
-          <option value="dlc">Дополнение</option>
-        </select>
-      </div>
-      <div class="modal__series--container modal__container">
-        <label for="modal__series--input" class="modal__series--label modal__label">
-          Франшиза
-        </label>
-        <input class="modal__series--input modal__input" id="modal__series--input" type="text">
-      </div>
-      <div class="modal__complete--container modal__container">
-        <label for="modal__complete--input" class="modal__complete--label modal__label">
-          Прохождение
-        </label>
-        <select class="modal__complete--input modal__input" id="modal__complete--input" required>
-          <option disabled selected value=""></option>
-          <option value="not-begin">Не начата</option>
-          <option value="completed">Пройдена</option>
-          <option value="in-progress">В процессе</option>
-        </select>
-      </div>
-      <div class="modal__release--container modal__container hidden">
-        <label for="modal__release--input" class="modal__release--label modal__label">
-          Дата выхода
-        </label>
-        <input class="modal__release--input modal__input" id="modal__release--input" type="date">
-      </div>
-      <div class="modal__score--container modal__container hidden">
-        <label for="modal__score--input" class="modal__score--label modal__label">
-          Оценка
-        </label>
-        <input class="modal__score--input modal__input" id="modal__score--input" type="number" min="1" max="5" step="0.1">
-      </div>
-      <div class="modal__platinum--container modal__container hidden">
-        <label for="modal__platinum--input" class="modal__platinum--label modal__label">
-          Пройдена на 100%
-        </label>
-        <input class="modal__platinum--input modal__checkbox" id="modal__platinum--input" type="checkbox">
-      </div>
-      <div class="modal__to-play--container modal__container hidden">
-        <label for="modal__to-play--input" class="modal__to-play--label modal__label">
-          Хочу пройти
-        </label>
-        <input class="modal__to-play--input modal__checkbox" id="modal__to-play--input" type="checkbox">
-      </div>
-      <div class="modal__buttons">
-        <button class="modal__cancel button modal__button" type="button">Отмена</button>
-        <button class="modal__submit button modal__button" type="submit">Готово</button>
-      </div>
-    </form>
-  </dialog>
-  <header class="page__header">
-    <nav class="header__menu">
-      <button class="header__add-game-button button" type="button">Добавить игру</button>
-      <menu class="header__filters">
-        <ul class="header__filters-list">
-          <li class="header__filters-item header__complete">
-            <span class="header__filters-item-text">Прохождение</span>
-            <div class="header__filters-options header__complete-options">
-              <span class="header__filters-option header__complete-option">Не начата</span>
-              <span class="header__filters-option header__complete-option">В процессе</span>
-              <span class="header__filters-option header__complete-option">Пройдена</span>
-            </div>
+  <header class="header">
+    <button class="header__button-add button" type="button">
+      Добавить игру
+    </button>
+    <menu class="header__menu">
+      <ul class="header__menu-list menu-filters">
+        <li class="header__menu-item header__submenu">
+          <p class="header__submenu-title">Статус прохождения</p>
+          <ul class="header__submenu-list">
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Пройдена</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Пройдена на 100%</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">В процессе</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Не начата</p>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <p class="header__submenu-title">Формат игры</p>
+          <ul class="header__submenu-list">
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Основная игра</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">DLC</p>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <p class="header__submenu-title">Оценка</p>
+          <ul class="header__submenu-list">
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">1 - 2</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">2 - 3</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">3 - 4</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">4 - 5</p>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <p class="header__submenu-title">Статус релиза</p>
+          <ul class="header__submenu-list">
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Вышла</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Не вышла</p>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <p class="header__submenu-title">Франшиза</p>
+          <ul class="header__submenu-list">
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Resident Evil Resident Evil</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">God of War</p>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <p class="header__submenu-title">Хочу пройти?</p>
+          <ul class="header__submenu-list">
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Да</p>
+            </li>
+            <li class="header__submenu-item">
+              <p class="header__submenu-text">Нет</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </menu>
+    <ul class="header__menu-list header__sort">
+      <li class="header__menu-item header__submenu">
+        <p class="header__submenu-title">Сортировать</p>
+        <ul class="header__submenu-list">
+          <li class="header__submenu-item">
+            <p class="header__submenu-text">По оценке</p>
           </li>
-          <li class="header__filters-item header__format">
-            <span class="header__filters-item-text">Формат игры</span>
-            <div class="header__filters-options header__format-options">
-              <span class="header__filters-option header__filters-option">Основная игра</span>
-              <span class="header__filters-option header__filters-option">DLC</span>
-            </div>
+          <li class="header__submenu-item">
+            <p class="header__submenu-text">По прохождению</p>
           </li>
-          <li class="header__filters-item header__score">
-            <span class="header__filters-item-text">Оценка</span>
-            <div class="header__filters-options header__score-options">
-              <span class="header__filters-option header__score-option">С оценкой</span>
-              <span class="header__filters-option header__score-option">Без оценки</span>
-            </div>
-          </li>
-          <li class="header__filters-item header__release">
-            <span class="header__filters-item-text">Статус релиза</span>
-            <div class="header__filters-options header__release-options">
-              <span class="header__filters-option header__release-option">Вышла</span>
-              <span class="header__filters-option header__release-option">Не вышла</span>
-            </div>
-          </li>
-          <li class="header__filters-item header__series">
-            <span class="header__filters-item-text">Франшиза</span>
-            <div class="header__filters-options header__series-options">
-              <span class="header__filters-option header__series-option">Без франшизы</span>
-            </div>
-          </li>
-          <li class="header__filters-item header__toplay">
-            <span class="header__filters-item-text">Хочу пройти?</span>
-            <div class="header__filters-options header__toplay-options">
-              <span class="header__filters-option header__toplay-option">Да</span>
-              <span class="header__filters-option header__toplay-option">Нет</span>
-            </div>
+          <li class="header__submenu-item">
+            <p class="header__submenu-text">По франшизе</p>
           </li>
         </ul>
-      </menu>
-      <div class="header__sort">
-        <span class="header__sort-text">Сортировать:</span>
-        <div class="header__sort-select">
-          <span class="header__sort-option">По умолчанию</span>
-          <span class="header__sort-option">По оценке / по убыванию</span>
-          <span class="header__sort-option">По оценке / по возрастанию</span>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <main class="page__main">
-    <ul class="cards__list">
-      <!-- <li class="cards__item">
-        <div class="cards__item-image-container">
-          <div class="cards__item-image-menu">
-            <button class="cards__item-image-button button card-button-delete" type="button">Удалить</button>
-            <button class="cards__item-image-button button card-button-edit" type="button">Редактировать</button>
-          </div>
-          <img src="./images/posters/mL6876_1024x1024.webp" alt="Cyberpunk 2077 Phantom Liberty poster" class="cards__item-image">
-        </div>
-        <div class="cards__content">
-          <h3 class="cards__item-title">Cyberpunk 2077 - Phantom Liberty</h3>
-          <div class="cards__item-signs">
-            <img src="./images/toplay.svg" alt="" class="cards__item-sign--toplay">
-            <img src="./images/dlc.svg" alt="" class="cards__item-sign--dlc">
-            <img src="./images/toscore.svg" alt="" class="cards__item-sign--toscore">
-            <span class="cards__item-sign--score hidden">4.7</span>
-            <span class="cards__item-sign--release hidden">30.08.2024</span>
-          </div>
-        </div>
-      </li> -->
+      </li>
     </ul>
+    <div class="header__menu-list header__search">
+      <input type="text" class="header__search-input" placeholder="Поиск">       
+    </div>
+  </header>
+  <main class="main">
+    <section class="games">
+      <ul class="games_list">
+        <li class="games__list-item">
+          <article class="games__list-card game">
+            <div class="game__poster-container">
+              <img src="./images/posters/mL6876_1024x1024.webp" alt="Cyberpunk 2077 - Phantom Liberty" class="game__poster-image" loading="lazy">
+            </div>
+            <div class="game__content">
+              <h2 class="game__title">
+                Cyberpunk 2077 - Phantom Liberty
+              </h2>
+              <span class="game__status game__status--dlc">
+                DLC
+              </span>
+              <span class="game__status game__status--toplay half-opacity">
+                <img src="./images/play.svg" alt="" class="game__status-image">
+              </span>
+              <span class="game__status game__status--platinum">
+                100%
+              </span>
+              <span class="game__status game__status--release-date">
+                30.08.2024
+              </span>
+              <span class="game__status game__status--score half-opacity">
+                -
+              </span>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </section>
   </main>
   <script src="./script.js"></script>
 </body>

@@ -180,9 +180,10 @@
   color: var(--main-color);
   font-size: 14px;
   display: flex;
+  text-align: center;
   justify-content: center;
   align-items: center;
-  padding: 4px 11px;
+  padding: 4px 4px;
   border-radius: 10px;
   transition: opacity 0.1s ease;
 }
@@ -204,6 +205,10 @@
 .game__status--toplay:active,
 .game__status--score:active {
   background-color: var(--bg-color-secondary-light);
+}
+
+.game__status-image {
+  pointer-events: none;
 }
 
 .game__status--platinum {
@@ -283,6 +288,23 @@
   border-radius: 10px;
 }
 
+.game__status--toplay {
+  grid-column: 1 / 2;
+}
+
+.game__status--release-date {
+  grid-column: 2 / 3;
+}
+
+.game__status--score {
+  grid-column: 3 / 4;
+}
+
+.game__status--score::-webkit-outer-spin-button,
+.game__status--score::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 .modal__button--cancel {
   background-color: var(--bg-color-primary);
 }
@@ -322,9 +344,10 @@
 
 
 
-.visually-hidden {
-  opacity: 0;
-}
+
+
+
+
 
 .hidden {
   display: none;

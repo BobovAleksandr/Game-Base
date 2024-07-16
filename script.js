@@ -2,7 +2,7 @@ let games = []
 
 // Конструктор игр
 class Game {
-  constructor(id = 0, name = '', posterUrl = './images/posters/placeholder.png', isCompleted = false, isDlc = false, score = '-', releaseDate = '', series = '', isToPlay = false, isPlatinum = false) {
+  constructor(id = 0, name = '', posterUrl = './images/posters/placeholder.png', isCompleted = false, isDlc = false, score = 0, releaseDate = '', series = '', isToPlay = false, isPlatinum = false) {
     this.id = id
     this.name = name
     this.posterUrl = posterUrl
@@ -14,6 +14,11 @@ class Game {
     this.isToPlay = isToPlay
     this.isPlatinum = isPlatinum
   }
+}
+
+// найти объект по имени
+function findGameByName(gameName) {
+  return games.find(game => game.name === gameName)
 }
 
 // Добавляет игру в массив games с новым id
@@ -44,7 +49,7 @@ function createGameElement(game) {
   $gameStatusDlc.classList.add('game__status', 'game__status--dlc')
   $gameStatusDlc.textContent = 'DLC'
   if (game.isDLc === false) {
-    $gameStatusDlc.classList.add('visually-hidden')
+    $gameStatusDlc.classList.add('hidden')
   }
   let $gameStatusToPlay = document.createElement('span')
   $gameStatusToPlay.classList.add('game__status', 'game__status--toplay')
@@ -56,29 +61,31 @@ function createGameElement(game) {
     $gameStatusToPlay.classList.add('half-opacity')
   }
   if (game.isCompleted === true) {
-    $gameStatusToPlay.classList.add('visually-hidden')
+    $gameStatusToPlay.classList.add('hidden')
   }
   let $gameStatusPlatinum = document.createElement('span')
   $gameStatusPlatinum.classList.add('game__status', 'game__status--platinum')
   $gameStatusPlatinum.textContent = '100%'
   if (game.isPlatinum === false) {
-    $gameStatusPlatinum.classList.add('visually-hidden')
+    $gameStatusPlatinum.classList.add('hidden')
   }
   let $gameStatusReleaseDate = document.createElement('span')
   $gameStatusReleaseDate.classList.add('game__status', 'game__status--release-date')
   if (game.releaseDate === '') {
-    $gameStatusReleaseDate.classList.add('visually-hidden')
+    $gameStatusReleaseDate.classList.add('hidden')
   } else {
     $gameStatusReleaseDate.textContent = game.releaseDate.split('-').reverse().join('.')
   }
-  let $gameStatusScore = document.createElement('span')
+  let $gameStatusScore = document.createElement('input')
   $gameStatusScore.classList.add('game__status', 'game__status--score')
-  $gameStatusScore.textContent = '-'
+  $gameStatusScore.type = 'number'
+  $gameStatusScore.placeholder = '-'
   if (game.score === '') {
     $gameStatusScore.classList.add('half-opacity')
   } else {
-    $gameStatusScore.textContent = game.score
+    $gameStatusScore.value = game.score // TODO не работает
   }
+
   $game.appendChild($gameArticle)
   $gameArticle.appendChild($gamePosterCaintainer)
   $gamePosterCaintainer.appendChild($gamePosterImage)
@@ -210,3 +217,41 @@ function clearModalFields($modal) {
     }
   }
 }
+
+// Отметка "Хочу пройти"
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('game__status--toplay')) {
+    event.target.classList.toggle('half-opacity')
+    changeIsToPlayStatus(findGameByName(event.target.closest('.game__content').querySelector('.game__title').textContent))
+    saveData()
+  }
+})
+
+function changeIsToPlayStatus(gameObject) {
+  gameObject.isToPlay = !gameObject.isToPlay
+}
+
+// Проставление / смена оценки
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('game__status--score')) {
+    event.target.value = ''
+  }
+})
+
+document.addEventListener('focusout', (event) => {
+  if (event.target.classList.contains('game__status--score')) {
+    let currentGameObject = findGameByName(event.target.closest('.game__content').querySelector('.game__title').textContent)
+    if (event.target.value === '' || event.target.value === '0') {
+      console.log('zero value')
+      event.target.value = currentGameObject.score
+    } else if (event.target.value < 0 || event.target.value > 5) {
+      event.target.value = currentGameObject.score
+      console.log('wrong value')
+    } else {
+      currentGameObject.score = event.target.value
+      console.log('ok value')
+    }
+  }
+  saveData()
+})
+

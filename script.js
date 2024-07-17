@@ -8,7 +8,7 @@ class Game {
     this.posterUrl = posterUrl
     this.isCompleted = isCompleted
     this.isDLc = isDlc
-    this.score = score
+    this.score = Number(score).toFixed(1)
     this.releaseDate = releaseDate
     this.series = series
     this.isToPlay = isToPlay
@@ -80,10 +80,11 @@ function createGameElement(game) {
   $gameStatusScore.classList.add('game__status', 'game__status--score')
   $gameStatusScore.type = 'number'
   $gameStatusScore.placeholder = '-'
-  if (game.score === '') {
+  if (game.score == 0) {
     $gameStatusScore.classList.add('half-opacity')
+    $gameStatusScore.value = ''
   } else {
-    $gameStatusScore.value = game.score // TODO не работает
+    $gameStatusScore.value = game.score
   }
 
   $game.appendChild($gameArticle)
@@ -241,15 +242,18 @@ document.addEventListener('click', (event) => {
 document.addEventListener('focusout', (event) => {
   if (event.target.classList.contains('game__status--score')) {
     let currentGameObject = findGameByName(event.target.closest('.game__content').querySelector('.game__title').textContent)
-    if (event.target.value === '' || event.target.value === '0') {
-      console.log('zero value')
+    if (event.target.value === '') {
       event.target.value = currentGameObject.score
+    } else if (event.target.value == 0) {
+      currentGameObject.score = 0
+      event.target.value = ''
+      event.target.classList.add('half-opacity')
     } else if (event.target.value < 0 || event.target.value > 5) {
       event.target.value = currentGameObject.score
-      console.log('wrong value')
     } else {
-      currentGameObject.score = event.target.value
-      console.log('ok value')
+      currentGameObject.score = Number(event.target.value).toFixed(1)
+      event.target.value = currentGameObject.score
+      event.target.classList.remove('half-opacity')
     }
   }
   saveData()

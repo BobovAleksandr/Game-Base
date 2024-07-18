@@ -58,7 +58,7 @@ function createGameElement(game) {
   $gameStatusToPlayImage.src = './images/play.svg'
   $gameStatusToPlayImage.alt = ''
   if (game.isToPlay === false) {
-    $gameStatusToPlay.classList.add('half-opacity')
+    $gameStatusToPlay.classList.add('hidden')
   }
   if (game.isCompleted === true) {
     $gameStatusToPlay.classList.add('hidden')
@@ -76,20 +76,32 @@ function createGameElement(game) {
   } else {
     $gameStatusReleaseDate.textContent = game.releaseDate.split('-').reverse().join('.')
   }
-  let $gameStatusScore = document.createElement('input')
+  let $gameStatusScore = document.createElement('span')
   $gameStatusScore.classList.add('game__status', 'game__status--score')
-  $gameStatusScore.type = 'number'
-  $gameStatusScore.placeholder = '-'
   if (game.score == 0) {
-    $gameStatusScore.classList.add('half-opacity')
-    $gameStatusScore.value = ''
+    $gameStatusScore.classList.add('hidden')
   } else {
-    $gameStatusScore.value = game.score
+    $gameStatusScore.textContent = game.score
   }
+
+  let $gameButtonsContainer = document.createElement('div')
+  $gameButtonsContainer.classList.add('game__poster-buttons')
+  let $gameButtonDelete = document.createElement('button')
+  $gameButtonDelete.classList.add('game__poster-button', 'game__poster-button--delete')
+  $gameButtonDelete.type = 'button'
+  $gameButtonDelete.textContent = 'Удалить'
+
+  let $gameButtonEdit = document.createElement('button')
+  $gameButtonEdit.classList.add('game__poster-button', 'game__poster-button--edit')
+  $gameButtonEdit.type = 'button'
+  $gameButtonEdit.textContent = 'Редактировать'
 
   $game.appendChild($gameArticle)
   $gameArticle.appendChild($gamePosterCaintainer)
   $gamePosterCaintainer.appendChild($gamePosterImage)
+  $gamePosterCaintainer.appendChild($gameButtonsContainer)
+  $gameButtonsContainer.appendChild($gameButtonDelete)
+  $gameButtonsContainer.appendChild($gameButtonEdit)
   $gameArticle.appendChild($gameContentCaintainer)
   $gameContentCaintainer.appendChild($gameTitle)
   $gameContentCaintainer.appendChild($gameStatusDlc)
@@ -98,6 +110,7 @@ function createGameElement(game) {
   $gameContentCaintainer.appendChild($gameStatusPlatinum)
   $gameContentCaintainer.appendChild($gameStatusReleaseDate)
   $gameContentCaintainer.appendChild($gameStatusScore)
+
   return $game  
 }
 
@@ -134,8 +147,8 @@ function loadData() {
 const $addGameButton = document.querySelector('.header__button-add')
 const $modalAddGame = document.querySelector('.modal--create')
 const $modalAddGameForm = document.querySelector('.modal--create .modal__form')
-const $modalAddGameSubmitButton = document.querySelector('.modal__button--submit')
-const $modalAddGameCancelButton = document.querySelector('.modal__button--cancel')
+const $modalAddGameSubmitButton = document.querySelector('.modal--create .modal__button--submit')
+const $modalAddGameCancelButton = document.querySelector('.modal--create .modal__button--cancel')
 
 // Открытие и закрытие
 $addGameButton.addEventListener('click', () => $modalAddGame.showModal())
@@ -200,10 +213,13 @@ function checkModalFields($modal) {
     $isToPlay.closest('.modal__field-item').classList.add('hidden')
     $isPlatinum.closest('.modal__field-item').classList.remove('hidden')
     $score.closest('.modal__field-item').classList.remove('hidden')
+    $isToPlay.checked = false
   } else {
     $isToPlay.closest('.modal__field-item').classList.remove('hidden')
     $isPlatinum.closest('.modal__field-item').classList.add('hidden')
+    $isPlatinum.checked = false
     $score.closest('.modal__field-item').classList.add('hidden')
+    $score.value = ''
   }
 }
 
@@ -219,43 +235,57 @@ function clearModalFields($modal) {
   }
 }
 
-// Отметка "Хочу пройти"
+// Удаление игры
 document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('game__status--toplay')) {
-    event.target.classList.toggle('half-opacity')
-    changeIsToPlayStatus(findGameByName(event.target.closest('.game__content').querySelector('.game__title').textContent))
+  if (event.target.classList.contains('game__poster-button--delete')) {
+    let $currentGame = event.target.closest('.games__list-item')
+    $currentGame.remove()
+    games = games.filter(game => game.name !== $currentGame.querySelector('.game__title').textContent)
     saveData()
   }
 })
 
-function changeIsToPlayStatus(gameObject) {
-  gameObject.isToPlay = !gameObject.isToPlay
-}
 
-// Проставление / смена оценки
+// Редактирование игры
+const $modalEditGame = document.querySelector('.modal--edit')
+const $modalEditGameCancelButton = document.querySelector('.modal--edit .modal__button--cancel') 
+const $modalEditameSubmitButton = document.querySelector('.modal--edit .modal__button--submit')
+const $modalEditGameForm = document.querySelector('.modal--edit .modal__form')
+
 document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('game__status--score')) {
-    event.target.value = ''
+  if (event.target.classList.contains('game__poster-button--edit')) {
+    $modalEditGame.showModal()
   }
 })
 
-document.addEventListener('focusout', (event) => {
-  if (event.target.classList.contains('game__status--score')) {
-    let currentGameObject = findGameByName(event.target.closest('.game__content').querySelector('.game__title').textContent)
-    if (event.target.value === '') {
-      event.target.value = currentGameObject.score
-    } else if (event.target.value == 0) {
-      currentGameObject.score = 0
-      event.target.value = ''
-      event.target.classList.add('half-opacity')
-    } else if (event.target.value < 0 || event.target.value > 5) {
-      event.target.value = currentGameObject.score
-    } else {
-      currentGameObject.score = Number(event.target.value).toFixed(1)
-      event.target.value = currentGameObject.score
-      event.target.classList.remove('half-opacity')
-    }
-  }
-  saveData()
+$modalEditGameCancelButton.addEventListener('click', () => {
+  $modalEditGame.close()
+  clearModalFields($modalEditGame)
 })
 
+const handleEditModalClick = (event) => {
+  const modalRect = $modalEditGame.getBoundingClientRect();
+  if (
+    event.clientX < modalRect.left ||
+    event.clientX > modalRect.right ||
+    event.clientY < modalRect.top ||
+    event.clientY > modalRect.bottom
+  ) {
+    $modalEditGame.close()
+    clearModalFields($modalEditGame)
+  }
+}
+$modalEditGame.addEventListener("click", handleEditModalClick)
+$modalEditGame.addEventListener("cancel", () => {
+  clearModalFields($modalEditGame)
+})
+
+$modalEditGame.addEventListener('change', (event) => {
+  if (event.target.classList.contains('modal__input')) {
+    checkModalFields($modalEditGame)
+  }
+})
+
+function fillModalFields() {
+  
+}

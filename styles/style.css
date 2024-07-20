@@ -150,6 +150,7 @@
 .game__poster-image {
   width: 100%;
   object-fit: cover;
+  object-position: center center;
   border-start-end-radius: 10px;
   border-start-start-radius: 10px;
   transition: all 0.1s ease;

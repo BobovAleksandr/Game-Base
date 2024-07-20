@@ -151,8 +151,9 @@
 
 .game__poster-image {
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: top center;
   border-start-end-radius: 10px;
   border-start-start-radius: 10px;
   transition: all 0.1s ease;

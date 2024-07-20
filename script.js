@@ -255,11 +255,24 @@ const $modalEditGameForm = document.querySelector('.modal--edit .modal__form')
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('game__poster-button--edit')) {
     $modalEditGame.showModal()
+    let currentCardObject = findGameByName(event.target.closest('.game').querySelector('.game__title').textContent)
+    $modalEditGame.id = currentCardObject.id
+    $modalEditGame.querySelector('.modal__input--name').value = currentCardObject.name
+    $modalEditGame.querySelector('.modal__input--poster').value = currentCardObject.posterUrl
+    $modalEditGame.querySelector('.modal__input--series').value = currentCardObject.series ?? ''
+    $modalEditGame.querySelector('.modal__input--release-date').value = currentCardObject.releaseDate ?? ''
+    $modalEditGame.querySelector('.modal__input--is-dlc').checked = currentCardObject.isDLc
+    $modalEditGame.querySelector('.modal__input--is-completed').checked = currentCardObject.isCompleted
+    $modalEditGame.querySelector('.modal__input--is-platinum').checked = currentCardObject.isPlatinum
+    $modalEditGame.querySelector('.modal__input--is-to-play').checked = currentCardObject.isToPlay
+    $modalEditGame.querySelector('.modal__input--score').value = currentCardObject.score ?? ''
+    checkModalFields($modalEditGame)
   }
 })
 
 $modalEditGameCancelButton.addEventListener('click', () => {
   $modalEditGame.close()
+  $modalEditGame.id = ''
   clearModalFields($modalEditGame)
 })
 
@@ -272,6 +285,7 @@ const handleEditModalClick = (event) => {
     event.clientY > modalRect.bottom
   ) {
     $modalEditGame.close()
+    $modalEditGame.id = ''
     clearModalFields($modalEditGame)
   }
 }
@@ -286,6 +300,24 @@ $modalEditGame.addEventListener('change', (event) => {
   }
 })
 
-function fillModalFields() {
-  
+$modalEditGameForm.addEventListener('submit', (event) => {
+  // event.preventDefault()
+  currentCardObject = games.find(game => game.id === Number($modalEditGameForm.closest('.modal--edit').id))
+  editGame(currentCardObject)
+  clearModalFields($modalEditGameForm)
+  $modalEditGame.close()
+  $modalEditGame.id = ''
+})
+
+function editGame(gameObject) {
+  gameObject.name = $modalEditGame.querySelector('.modal__input--name').value
+  gameObject.posterUrl = $modalEditGame.querySelector('.modal__input--poster').value ?? ''
+  gameObject.series = $modalEditGame.querySelector('.modal__input--series').value ?? ''
+  gameObject.releaseDate = $modalEditGame.querySelector('.modal__input--release-date').value ?? ''
+  gameObject.isDLc = $modalEditGame.querySelector('.modal__input--is-dlc').checked
+  gameObject.isCompleted = $modalEditGame.querySelector('.modal__input--is-completed').checked
+  gameObject.isPlatinum = $modalEditGame.querySelector('.modal__input--is-platinum').checked
+  gameObject.isToPlay = $modalEditGame.querySelector('.modal__input--is-to-play').checked
+  gameObject.score = $modalEditGame.querySelector('.modal__input--score').value ?? ''
+  saveData()
 }

@@ -192,7 +192,7 @@
 }
 
 .game__content {
-  height: 100px;
+  height: 110px;
   display: grid;
   gap: 8px;
   grid-template-columns: 36px 96px 36px;

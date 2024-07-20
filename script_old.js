@@ -326,3 +326,4 @@ function deleteCard(cardObject) {
   })
   saveData()
 }
+

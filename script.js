@@ -31,6 +31,7 @@ function pushGameToArray(game) {
 function createGameElement(game) {
   let $game = document.createElement('li')
   $game.classList.add('games__list-item')
+  $game.draggable="true"
   let $gameArticle = document.createElement('article')
   $gameArticle.classList.add('games__list-card', 'game')
   let $gamePosterCaintainer = document.createElement('div')
@@ -321,3 +322,61 @@ function editGame(gameObject) {
   gameObject.score = $modalEditGame.querySelector('.modal__input--score').value ?? ''
   saveData()
 }
+
+
+// Drag and drop
+const $gamesList = document.querySelector('.games_list')
+const $games = $gamesList.querySelectorAll('.games__list-item');
+
+function getNextElement(cursorPosition, currentElement) {
+  const currentElementCoord = currentElement.getBoundingClientRect();
+  const currentElementCenter = currentElementCoord.x + currentElementCoord.width / 2;
+  const nextElement = (cursorPosition < currentElementCenter) ?
+      currentElement :
+      currentElement.nextElementSibling;
+  return nextElement;
+};
+
+$gamesList.addEventListener('dragstart', (event) => {
+  event.target.classList.add('moving');
+})
+
+$gamesList.addEventListener('dragend', (event) => {
+  event.target.classList.remove('moving');
+  saveData()
+})
+
+$gamesList.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  const activeElement = $gamesList.querySelector('.moving');
+  const currentElement = event.target.closest('.games__list-item');
+  const isMoveable = activeElement !== currentElement && currentElement;
+  if (!isMoveable) {
+    return;
+  }
+  const nextElement = getNextElement(event.clientX, currentElement);
+  if (nextElement && activeElement === nextElement.previousElementSibling || activeElement === nextElement) {
+    return;
+  }
+  $gamesList.insertBefore(activeElement, nextElement)
+  rewriteGamesId()
+})
+
+
+// Переназначение id после перетаскивания
+function rewriteGamesId() {
+  let $games = document.querySelectorAll('.game__title')
+  $games.forEach(($game, index) => {
+    let currenwGameObject = games.find(game => game.name === $game.textContent)
+    currenwGameObject.id = index
+    games = games.sort((a, b) => a.id - b.id)
+  })
+}
+
+
+
+
+
+
+
+

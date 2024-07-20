@@ -157,6 +157,7 @@
   border-start-end-radius: 10px;
   border-start-start-radius: 10px;
   transition: all 0.1s ease;
+  pointer-events: none;
 }
 
 .game__poster-container:hover .game__poster-image {
@@ -383,4 +384,11 @@
 
 .half-opacity {
   opacity: 0.5;
+}
+
+.moving {
+  /* filter: brightness(0.4); */
+  opacity: 0.5;
+  border: 2px dashed var(--main-color);
+  border-radius: 10px;
 }

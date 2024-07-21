@@ -125,6 +125,11 @@
   max-width: 304px;
 }
 
+.series-list {
+  max-height: 294px;
+  overflow-y: auto;
+}
+
 .main {
   margin-block-start: 36px;
 }
@@ -399,6 +404,6 @@
 }
 
 .selected {
-  border-left: 8px solid var(--main-color);
+  border-left: 8px solid var(--accent-color);
   padding-inline-start: 12px;
 }

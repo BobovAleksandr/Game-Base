@@ -137,6 +137,7 @@ function loadData() {
     games = JSON.parse(localStorage.getItem('games'))
     games.forEach(game => {
       renderGame(createGameElement(game))
+      fillGamesSeriesArray(game)
     })
   }
 }
@@ -324,7 +325,9 @@ function editGame(gameObject) {
 }
 
 
-// Drag and drop
+// -------------------------------------------------------------------------
+// ------------------------------------------------------------------------- DRAG'N'DROP
+// -------------------------------------------------------------------------
 const $gamesList = document.querySelector('.games_list')
 const $games = $gamesList.querySelectorAll('.games__list-item');
 
@@ -362,7 +365,6 @@ $gamesList.addEventListener('dragover', (event) => {
   rewriteGamesId()
 })
 
-
 // Переназначение id после перетаскивания
 function rewriteGamesId() {
   let $games = document.querySelectorAll('.game__title')
@@ -373,21 +375,65 @@ function rewriteGamesId() {
   })
 }
 
-// Поиск
+
+// -------------------------------------------------------------------------
+// ------------------------------------------------------------------------- ПОИСК
+// -------------------------------------------------------------------------
 const $searchInput = document.querySelector('.header__search-input')
 
 
 $searchInput.addEventListener('input', (event) => {
   $gamesList.innerHTML = ''
-  let searchedGames = games.filter(game => game.name.toLowerCase().includes(event.target.value.toLowerCase()))
-  if (searchedGames.length > 0) {
-    searchedGames.forEach(game => {
+  let modifiedGames = games.filter(game => game.name.toLowerCase().includes(event.target.value.toLowerCase()))
+  if (modifiedGames.length > 0) {
+    modifiedGames.forEach(game => {
       renderGame(createGameElement(game))
     })
   } 
 })
 
 // Список франшиз
-let GamesSeries = []
+let gamesSeries = []
+
+// Заполнение массива франшиз уникальными значениями
+const $seriesList = document.querySelector('.series-list')
+function fillGamesSeriesArray(game) {
+  if (game.series) {
+    if (gamesSeries.includes(game.series)) {
+      return
+    } else {
+      gamesSeries.push(game.series)
+      $seriesList.appendChild(createSeriesElement(game.series))
+    }
+  }
+}
+
+// Создание элемента-франшизы
+function createSeriesElement(series) {
+  let $seriesItem = document.createElement('li')
+  $seriesItem.classList.add('header__submenu-item')
+  let $seriesText = document.createElement('p')
+  $seriesText.classList.add('header__submenu-text')
+  $seriesText.textContent = series
+  $seriesItem.appendChild($seriesText)
+  return $seriesItem
+}
+
+// -------------------------------------------------------------------------
+// ------------------------------------------------------------------------- ФИЛЬТРЫ
+// -------------------------------------------------------------------------
+
+// Смена выделения
+let $filterMenuList = [...document.querySelectorAll('.header__submenu-list')]
+
+$filterMenuList.forEach($menu => {
+  $menu.addEventListener('click', (event) => {
+    let $items = [...$menu.querySelectorAll('.header__submenu-item')]
+    $items.forEach($item => {
+      $item.classList.remove('selected')
+    })
+    event.target.classList.add('selected')
+  })
+})
 
 

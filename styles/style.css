@@ -85,6 +85,7 @@
 }
 
 .header__submenu-item {
+  position: relative;
   background-color: var(--bg-color-secondary);
   padding: 12px 20px;
 }
@@ -100,6 +101,10 @@
 
 .header__submenu-item:last-child {
   border-radius: 0 0 10px 10px;
+}
+
+.header__submenu-text {
+  pointer-events: none;
 }
 
 .header__sort {
@@ -132,7 +137,7 @@
 
 .game {
   position: relative;
-  height: 350px;
+  height: 360px;
   width: 200px;
 }
 
@@ -391,4 +396,9 @@
   opacity: 0.5;
   border: 2px dashed var(--main-color);
   border-radius: 10px;
+}
+
+.selected {
+  border-left: 8px solid var(--main-color);
+  padding-inline-start: 12px;
 }

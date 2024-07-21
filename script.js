@@ -373,10 +373,24 @@ function rewriteGamesId() {
   })
 }
 
+// Поиск
+const $searchInput = document.querySelector('.header__search-input')
 
 
-
-
+$searchInput.addEventListener('input', (event) => {
+  $gamesList.innerHTML = ''
+  let searchedGames = games.filter(game => game.name.includes(event.target.value))
+  if (searchedGames.length > 0) {
+    searchedGames.forEach(game => {
+      renderGame(createGameElement(game))
+    })
+  } 
+  // else {
+  //   games.forEach(game => {
+  //     renderGame(createGameElement(game))
+  //   })
+  // }
+})
 
 
 

@@ -4,13 +4,13 @@ let games = []
 class Game {
   constructor(id = 0, name = '', posterUrl = './images/posters/placeholder.png', isCompleted = false, isDlc = false, score = 0, releaseDate = '', series = '', isToPlay = false, isPlatinum = false) {
     this.id = id
-    this.name = name
+    this.name = name.trim()
     this.posterUrl = posterUrl
     this.isCompleted = isCompleted
     this.isDLc = isDlc
     this.score = Number(score).toFixed(1)
     this.releaseDate = releaseDate
-    this.series = series
+    this.series = series.trim()
     this.isToPlay = isToPlay
     this.isPlatinum = isPlatinum
   }
@@ -186,7 +186,7 @@ $modalAddGameForm.addEventListener('submit', (event) => {
   let name = $modalAddGame.querySelector('.modal__input--name').value
   let posterUrl = $modalAddGame.querySelector('.modal__input--poster').value
   let isDlc = $modalAddGame.querySelector('.modal__input--is-dlc').checked
-  let series = $modalAddGame.querySelector('.modal__input--series').value ?? false
+  let series = $modalAddGame.querySelector('.modal__input--series').value.trim() ?? false
   let isCompleted = $modalAddGame.querySelector('.modal__input--is-completed').checked
   let releaseDate = $modalAddGame.querySelector('.modal__input--release-date').value ?? false
   let score = $modalAddGame.querySelector('.modal__input--score').value ?? false
@@ -261,7 +261,7 @@ document.addEventListener('click', (event) => {
     $modalEditGame.id = currentCardObject.id
     $modalEditGame.querySelector('.modal__input--name').value = currentCardObject.name
     $modalEditGame.querySelector('.modal__input--poster').value = currentCardObject.posterUrl
-    $modalEditGame.querySelector('.modal__input--series').value = currentCardObject.series ?? ''
+    $modalEditGame.querySelector('.modal__input--series').value = currentCardObject.series.trim() ?? ''
     $modalEditGame.querySelector('.modal__input--release-date').value = currentCardObject.releaseDate ?? ''
     $modalEditGame.querySelector('.modal__input--is-dlc').checked = currentCardObject.isDLc
     $modalEditGame.querySelector('.modal__input--is-completed').checked = currentCardObject.isCompleted
@@ -314,7 +314,7 @@ $modalEditGameForm.addEventListener('submit', (event) => {
 function editGame(gameObject) {
   gameObject.name = $modalEditGame.querySelector('.modal__input--name').value
   gameObject.posterUrl = $modalEditGame.querySelector('.modal__input--poster').value ?? ''
-  gameObject.series = $modalEditGame.querySelector('.modal__input--series').value ?? ''
+  gameObject.series = $modalEditGame.querySelector('.modal__input--series').value.trim() ?? ''
   gameObject.releaseDate = $modalEditGame.querySelector('.modal__input--release-date').value ?? ''
   gameObject.isDLc = $modalEditGame.querySelector('.modal__input--is-dlc').checked
   gameObject.isCompleted = $modalEditGame.querySelector('.modal__input--is-completed').checked
@@ -399,11 +399,11 @@ let gamesSeries = []
 const $seriesList = document.querySelector('.series-list')
 function fillGamesSeriesArray(game) {
   if (game.series) {
-    if (gamesSeries.includes(game.series)) {
+    if (gamesSeries.includes(game.series.trim())) {
       return
     } else {
-      gamesSeries.push(game.series)
-      $seriesList.appendChild(createSeriesElement(game.series))
+      gamesSeries.push(game.series.trim())
+      $seriesList.appendChild(createSeriesElement(game.series.trim()))
     }
   }
 }
@@ -414,7 +414,7 @@ function createSeriesElement(series) {
   $seriesItem.classList.add('header__submenu-item')
   let $seriesText = document.createElement('p')
   $seriesText.classList.add('header__submenu-text')
-  $seriesText.textContent = series
+  $seriesText.textContent = series.trim()
   $seriesItem.appendChild($seriesText)
   return $seriesItem
 }
